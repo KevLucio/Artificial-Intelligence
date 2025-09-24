@@ -1,5 +1,5 @@
 """
-@author: Kevyn Alejandro Pérez Lucio
+@author: Kevyn Alejandro PÃ©rez Lucio
 """
 
 import pygame
@@ -22,7 +22,7 @@ WHITE = (255, 255, 255)
 BLACK = (0, 0, 0)
 BLUE = (0, 0, 255)
 
-arbol_busqueda = None  # Inicialización
+arbol_busqueda = None  # InicializaciÃ³n
 
 # Cargar el laberinto desde un archivo TXT
 def cargar_laberinto(nombre_archivo):
@@ -33,7 +33,7 @@ def cargar_laberinto(nombre_archivo):
             laberinto.append(row)
     return laberinto
 
-# Función para calcular la distancia euclidiana entre dos puntos
+# FunciÃ³n para calcular la distancia euclidiana entre dos puntos
 def calcular_distancia(x1, y1, x2, y2):
     return math.sqrt((x1 - x2) ** 2 + (y1 - y2) ** 2)
 
@@ -70,7 +70,7 @@ class SerX:
         direcciones_prioritarias = ["W", "A", "S", "D"]
 
         for direccion in direcciones_prioritarias:
-            x_nuevo, y_nuevo = self.x, self.y  # Copia temporal de la posición actual
+            x_nuevo, y_nuevo = self.x, self.y  # Copia temporal de la posiciÃ³n actual
 
             if direccion == "W" and self.y > 0:
                 y_nuevo -= 1
@@ -86,7 +86,7 @@ class SerX:
                 and 0 <= y_nuevo < len(laberinto)
                 and laberinto[y_nuevo][x_nuevo] == 1
             ):
-                # Puede moverse en esta dirección
+                # Puede moverse en esta direcciÃ³n
                 self.mover(direccion)
                 return
 
@@ -112,23 +112,23 @@ class SerX:
                     if laberinto[i][j] == 1:
                         win.blit(letra_v, (j * CELDA_SIZE + 15, i * CELDA_SIZE + 15))
 
-# Función para escribir el árbol de búsqueda en un archivo de texto
+# FunciÃ³n para escribir el Ã¡rbol de bÃºsqueda en un archivo de texto
 def escribir_arbol(arbol_busqueda):
     with open("arbol_busqueda.txt", "w") as archivo:
         for nodo, hijos in arbol_busqueda.items():
             archivo.write(f"Nodo: {nodo}, Hijos: {hijos}\n")
 
-# Función para resolver el laberinto utilizando Búsqueda en Amplitud (BFS)
+# FunciÃ³n para resolver el laberinto utilizando BÃºsqueda en Amplitud (BFS)
 def resolver_bfs(laberinto, x_inicial, y_inicial, x_meta, y_meta):
     visitado = [[False for _ in range(len(laberinto[0]))] for _ in range(len(laberinto))]
     cola = deque()
     cola.append((x_inicial, y_inicial, []))
-    arbol = {}  # Diccionario para almacenar el árbol de búsqueda
+    arbol = {}  # Diccionario para almacenar el Ã¡rbol de bÃºsqueda
 
     while cola:
         x, y, camino = cola.popleft()
         if x == x_meta and y == y_meta:
-            return camino, arbol  # Retorna el camino y el árbol de búsqueda
+            return camino, arbol  # Retorna el camino y el Ã¡rbol de bÃºsqueda
 
         if (
             0 <= x < len(laberinto[0])
@@ -145,11 +145,11 @@ def resolver_bfs(laberinto, x_inicial, y_inicial, x_meta, y_meta):
 
     return None, None
 
-# Función para resolver el laberinto utilizando Búsqueda en Profundidad (DFS)
+# FunciÃ³n para resolver el laberinto utilizando BÃºsqueda en Profundidad (DFS)
 def resolver_dfs(laberinto, x_inicial, y_inicial, x_meta, y_meta):
     def dfs(x, y, camino, arbol):
         if x == x_meta and y == y_meta:
-            return camino, arbol  # Retorna el camino y el árbol de búsqueda
+            return camino, arbol  # Retorna el camino y el Ã¡rbol de bÃºsqueda
         if (
             0 <= x < len(laberinto[0])
             and 0 <= y < len(laberinto)
@@ -168,7 +168,7 @@ def resolver_dfs(laberinto, x_inicial, y_inicial, x_meta, y_meta):
     camino_dfs, arbol = dfs(x_inicial, y_inicial, [], {})
     return camino_dfs, arbol
 
-# Función para mostrar el mapa real descubierto del laberinto
+# FunciÃ³n para mostrar el mapa real descubierto del laberinto
 def mostrar_mapa_real():
     for i in range(len(laberinto)):
         for j in range(len(laberinto[i])):
@@ -178,7 +178,7 @@ def mostrar_mapa_real():
                 elif laberinto[i][j] == 1:
                     pygame.draw.rect(win, WHITE, (j * CELDA_SIZE, i * CELDA_SIZE, CELDA_SIZE, CELDA_SIZE))
 
-# Función para imprimir el árbol de búsqueda
+# FunciÃ³n para imprimir el Ã¡rbol de bÃºsqueda
 def imprimir_arbol(arbol):
     for nodo, hijos in arbol.items():
         print(f"Nodo: {nodo}, Hijos: {hijos}")
@@ -196,10 +196,10 @@ def crear_grafo_pydot(arbol):
 
     return graph
 
-# Tamaño de las celdas en píxeles
+# TamaÃ±o de las celdas en pÃ­xeles
 CELDA_SIZE = 40
 
-# Cargar el laberinto y configurar la posición inicial
+# Cargar el laberinto y configurar la posiciÃ³n inicial
 nombre_archivo = "laberinto.txt"
 laberinto = cargar_laberinto(nombre_archivo)
 x_inicial = int(input("Ingrese la coordenada x inicial: "))
@@ -213,7 +213,7 @@ avatares = {
     "Pie Grande": "pie_grande.png"
 }
 
-# Preguntar al usuario qué avatar desea utilizar
+# Preguntar al usuario quÃ© avatar desea utilizar
 print("Avatares disponibles:")
 for i, avatar in enumerate(avatares, start=1):
     print(f"{i}. {avatar}")
@@ -231,32 +231,32 @@ meta_image = pygame.image.load("meta.png")
 serx = SerX(x_inicial, y_inicial, avatar)
 
 # Preguntar al usuario si quiere cambiar alguna parte del laberinto
-cambio_lab = input("¿Desea cambiar alguna parte del laberinto? (Sí/No): ").lower()
-while cambio_lab == "si" or cambio_lab == "sí":
+cambio_lab = input("Â¿Desea cambiar alguna parte del laberinto? (SÃ­/No): ").lower()
+while cambio_lab == "si" or cambio_lab == "sÃ­":
     x_cambio = int(input("Ingrese la coordenada x a cambiar: "))
     y_cambio = int(input("Ingrese la coordenada y a cambiar: "))
     
     if x_cambio >= 0 and x_cambio < len(laberinto[0]) and y_cambio >= 0 and y_cambio < len(laberinto):
-        nuevo_valor = int(input("¿Qué valor desea asignar? (0: Pared, 1: Camino): "))
+        nuevo_valor = int(input("Â¿QuÃ© valor desea asignar? (0: Pared, 1: Camino): "))
         
         if nuevo_valor == 0 or nuevo_valor == 1:
             laberinto[y_cambio][x_cambio] = nuevo_valor
             print("Laberinto actualizado.")
         else:
-            print("Valor no válido. Por favor, ingrese 0 para pared o 1 para camino.")
+            print("Valor no vÃ¡lido. Por favor, ingrese 0 para pared o 1 para camino.")
     else:
         print("Coordenadas fuera del rango del laberinto.")
     
-    cambio_lab = input("¿Desea cambiar otra parte del laberinto? (Sí/No): ").lower()
+    cambio_lab = input("Â¿Desea cambiar otra parte del laberinto? (SÃ­/No): ").lower()
 
 # Preguntar al usuario si quiere conocer una zona del laberinto
-quiero_conocer_zona = input("¿Desea conocer una zona del laberinto? (Sí/No): ").lower()
+quiero_conocer_zona = input("Â¿Desea conocer una zona del laberinto? (SÃ­/No): ").lower()
 # Verificar si el usuario quiere conocer una zona del laberinto
-while quiero_conocer_zona == "si" or quiero_conocer_zona == "sí":
+while quiero_conocer_zona == "si" or quiero_conocer_zona == "sÃ­":
     zona_x = int(input("Ingrese la coordenada x de la zona a conocer: "))
     zona_y = int(input("Ingrese la coordenada y de la zona a conocer: "))
 
-    # Verificar si las coordenadas están dentro del rango del laberinto
+    # Verificar si las coordenadas estÃ¡n dentro del rango del laberinto
     if 0 <= zona_x < len(laberinto[0]) and 0 <= zona_y < len(laberinto):
         if laberinto[zona_y][zona_x] == 0:
             print("La zona es una pared (0).")
@@ -265,42 +265,42 @@ while quiero_conocer_zona == "si" or quiero_conocer_zona == "sí":
     else:
         print("Coordenadas fuera del rango del laberinto.")
 
-    quiero_conocer_zona = input("¿Desea conocer otra zona del laberinto? (Sí/No): ").lower()
+    quiero_conocer_zona = input("Â¿Desea conocer otra zona del laberinto? (SÃ­/No): ").lower()
 
 # Preguntar al usuario si quiere resolver el laberinto con BFS o DFS
-resolucion_elegida = input("¿Desea resolver el laberinto con BFS (Búsqueda en Amplitud) o DFS (Búsqueda en Profundidad)? ").lower()
+resolucion_elegida = input("Â¿Desea resolver el laberinto con BFS (BÃºsqueda en Amplitud) o DFS (BÃºsqueda en Profundidad)? ").lower()
 while resolucion_elegida not in ["bfs", "dfs"]:
     resolucion_elegida = input("Por favor, elija 'bfs' o 'dfs': ").lower()
 
-# Resolución utilizando BFS
+# ResoluciÃ³n utilizando BFS
 if resolucion_elegida == "bfs":
     camino_resuelto, arbol_busqueda = resolver_bfs(laberinto, x_inicial, y_inicial, x_meta, y_meta)
     if camino_resuelto is not None:
-        print("Resolución utilizando BFS:")
+        print("ResoluciÃ³n utilizando BFS:")
         print(camino_resuelto)
-        imprimir_arbol(arbol_busqueda)  # Mostrar el árbol de búsqueda y contar los hijos
-        escribir_arbol(arbol_busqueda)  # Guardar el árbol de búsqueda en un archivo
+        imprimir_arbol(arbol_busqueda)  # Mostrar el Ã¡rbol de bÃºsqueda y contar los hijos
+        escribir_arbol(arbol_busqueda)  # Guardar el Ã¡rbol de bÃºsqueda en un archivo
         # Crear y guardar el grafo Pydot
         grafo = crear_grafo_pydot(arbol_busqueda)
         grafo.write('arbol_grafico_bfs.dot')
         grafo.write_png('arbol_grafico_bfs.png')
     else:
-        print("No se encontró una solución utilizando BFS.")
+        print("No se encontrÃ³ una soluciÃ³n utilizando BFS.")
 
-# Resolución utilizando DFS
+# ResoluciÃ³n utilizando DFS
 if resolucion_elegida == "dfs":
     camino_resuelto, arbol_busqueda = resolver_dfs(laberinto, x_inicial, y_inicial, x_meta, y_meta)
     if camino_resuelto is not None:
-        print("Resolución utilizando DFS:")
+        print("ResoluciÃ³n utilizando DFS:")
         print(camino_resuelto)
-        imprimir_arbol(arbol_busqueda)  # Mostrar el árbol de búsqueda y contar los hijos
-        escribir_arbol(arbol_busqueda)  # Guardar el árbol de búsqueda en un archivo
+        imprimir_arbol(arbol_busqueda)  # Mostrar el Ã¡rbol de bÃºsqueda y contar los hijos
+        escribir_arbol(arbol_busqueda)  # Guardar el Ã¡rbol de bÃºsqueda en un archivo
         # Crear y guardar el grafo Pydot
         grafo = crear_grafo_pydot(arbol_busqueda)
         grafo.write('arbol_grafico_dfs.dot')
         grafo.write_png('arbol_grafico_dfs.png')
     else:
-        print("No se encontró una solución utilizando DFS.")
+        print("No se encontrÃ³ una soluciÃ³n utilizando DFS.")
 
 # Bucle principal del juego
 run = True
@@ -309,7 +309,7 @@ while run:
         if event.type == pygame.QUIT:
             run = False
 
-    # Lógica para el movimiento del SerX
+    # LÃ³gica para el movimiento del SerX
     if serx.x != x_meta or serx.y != y_meta:
         if resolucion_elegida == "bfs":
             serx.mover(camino_resuelto[0])  # Moverse siguiendo el camino BFS
@@ -336,7 +336,7 @@ while run:
                 elif laberinto[i][j] == 1:
                     pygame.draw.rect(win, WHITE, (j * CELDA_SIZE, i * CELDA_SIZE, CELDA_SIZE, CELDA_SIZE))
                 
-                    # Agregar lógica para marcar las intersecciones con 'O'
+                    # Agregar lÃ³gica para marcar las intersecciones con 'O'
                     if (
                         i > 0 and i < len(laberinto)-1 and j > 0 and j < len(laberinto[i])-1
                         and laberinto[i-1][j] == 1 and laberinto[i+1][j] == 1
@@ -372,14 +372,14 @@ while run:
 
     pygame.time.delay(500)  # Pausa de 500 milisegundos
 
-    # Verificar si el SerX llegó a la meta
+    # Verificar si el SerX llegÃ³ a la meta
     if serx.x == x_meta and serx.y == y_meta:
         # Mostrar el mensaje de victoria
         font = pygame.font.Font(None, 36)
-        mensaje = font.render("¡Llegaste a la Meta, FELICIDADES!", True, WHITE)
+        mensaje = font.render("Â¡Llegaste a la Meta, FELICIDADES!", True, WHITE)
         win.blit(mensaje, (200, 200))
 
-        # Guardar el árbol de búsqueda en un archivo de texto
+        # Guardar el Ã¡rbol de bÃºsqueda en un archivo de texto
         if arbol_busqueda:
             escribir_arbol(arbol_busqueda)
 
@@ -388,8 +388,8 @@ while run:
 
         run = False  # Salir del bucle al final del juego
 
-# Mostrar el número de movimientos y el costo total al final del juego
-print(f"Número de movimientos: {serx.movimientos}")
+# Mostrar el nÃºmero de movimientos y el costo total al final del juego
+print(f"NÃºmero de movimientos: {serx.movimientos}")
 print(f"Costo total: {serx.costo_total}")
 
 pygame.quit()
