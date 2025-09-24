@@ -1,5 +1,5 @@
 """
-@author: Kevyn Alejandro Pérez Lucio
+@author: Kevyn Alejandro PÃ©rez Lucio
 """
 
 import pygame
@@ -25,7 +25,7 @@ BLUE = (0, 0, 255)
 
 arbol_busqueda = {}
 
-# Cargar imágenes de texturas
+# Cargar imÃ¡genes de texturas
 texturas = {
     0: pygame.image.load("C:\\Users\\kev_a\\OneDrive\\Documentos\\DOC POLI\\ESCOM\\4to Semestre\\FIA\\1erParcial\\Practica3\\Texturas\\muro.png"),
     1: pygame.image.load("C:\\Users\\kev_a\\OneDrive\\Documentos\\DOC POLI\\ESCOM\\4to Semestre\\FIA\\1erParcial\\Practica3\\Texturas\\piso.png"),
@@ -45,7 +45,7 @@ def cargar_laberinto(nombre_archivo):
             laberinto.append(row)
     return laberinto
 
-# Función para calcular la distancia euclidiana entre dos puntos
+# FunciÃ³n para calcular la distancia euclidiana entre dos puntos
 def calcular_distancia(x1, y1, x2, y2):
     return math.sqrt((x1 - x2) ** 2 + (y1 - y2) ** 2)
 
@@ -68,7 +68,7 @@ def resolver_a_star(laberinto, x_inicial, y_inicial, x_meta, y_meta):
     meta = NodoAStar(x_meta, y_meta)
     abiertos = []
     cerrados = []
-    arbol_busqueda = {inicio: []}  # Inicializamos el árbol con el nodo inicial
+    arbol_busqueda = {inicio: []}  # Inicializamos el Ã¡rbol con el nodo inicial
 
     heapq.heappush(abiertos, inicio)
 
@@ -94,7 +94,7 @@ def resolver_a_star(laberinto, x_inicial, y_inicial, x_meta, y_meta):
                     sucesor.h = calcular_distancia(sucesor.x, sucesor.y, x_meta, y_meta)
                     sucesor.f = sucesor.g + sucesor.h
                     sucesores.append(sucesor)
-                    arbol_busqueda[sucesor] = []  # Agregamos el sucesor al árbol
+                    arbol_busqueda[sucesor] = []  # Agregamos el sucesor al Ã¡rbol
 
         for sucesor in sucesores:
             if any(nodo.x == sucesor.x and nodo.y == sucesor.y for nodo in cerrados):
@@ -103,7 +103,7 @@ def resolver_a_star(laberinto, x_inicial, y_inicial, x_meta, y_meta):
             if any(nodo.x == sucesor.x and nodo.y == sucesor.y and sucesor.g >= nodo.g for nodo in abiertos):
                 continue
 
-            # Agregamos el sucesor al árbol como hijo del nodo actual
+            # Agregamos el sucesor al Ã¡rbol como hijo del nodo actual
             for nodo, hijos in arbol_busqueda.items():
                 if nodo.x == actual.x and nodo.y == actual.y:
                     hijos.append(sucesor)
@@ -128,7 +128,7 @@ class SerX:
         self.costo_casilla = 1
         
     def mover(self, direccion):
-        x_nuevo, y_nuevo = self.x, self.y  # Copia temporal de la posición actual
+        x_nuevo, y_nuevo = self.x, self.y  # Copia temporal de la posiciÃ³n actual
 
         if direccion == "W" and self.y > 0:
             y_nuevo -= 1
@@ -144,11 +144,11 @@ class SerX:
             and 0 <= y_nuevo < len(laberinto)
             and laberinto[y_nuevo][x_nuevo] != 0
         ):
-            # Puede moverse en esta dirección
+            # Puede moverse en esta direcciÃ³n
             self.x = x_nuevo
             self.y = y_nuevo
             tipo_casilla = laberinto[y_nuevo][x_nuevo]
-            # Calcula el costo de la casilla según el avatar
+            # Calcula el costo de la casilla segÃºn el avatar
             costo_casilla = self.costo_casilla.get(tipo_casilla, 1)
             self.movimientos += 1
             self.costo_total += costo_casilla  # Considera el costo de la casilla
@@ -158,7 +158,7 @@ class SerX:
         direcciones_prioritarias = ["W", "A", "S", "D"]
 
         for direccion in direcciones_prioritarias:
-            x_nuevo, y_nuevo = self.x, self.y  # Copia temporal de la posición actual
+            x_nuevo, y_nuevo = self.x, self.y  # Copia temporal de la posiciÃ³n actual
 
             if direccion == "W" and self.y > 0:
                 y_nuevo -= 1
@@ -175,7 +175,7 @@ class SerX:
                 and laberinto[y_nuevo][x_nuevo] != 0
                 and not self.visitado[y_nuevo][x_nuevo]
             ):
-                # Puede moverse en esta dirección
+                # Puede moverse en esta direcciÃ³n
                 self.mover(direccion)
                 return
 
@@ -190,7 +190,7 @@ class Humano(SerX):
         super().__init__(x, y, avatar)
         self.costo_casilla = {
             1: 1,  # Piso
-            2: 3,  # Montaña
+            2: 3,  # MontaÃ±a
             3: 2,  # Tierra
             4: 2,  # Bosque
             5: 3,  # Arena
@@ -203,7 +203,7 @@ class Mono(SerX):
         # Define los costos de las casillas para el avatar Mono
         self.costo_casilla = {
             1: 1,  # Piso
-            2: 2,  # Montaña
+            2: 2,  # MontaÃ±a
             3: 2,  # Tierra
             4: 1,  # Bosque
             5: 3,  # Arena
@@ -216,7 +216,7 @@ class Pulpo(SerX):
         # Define los costos de las casillas para el avatar Mono
         self.costo_casilla = {
             1: 3,  # Piso
-            2: 4,  # Montaña
+            2: 4,  # MontaÃ±a
             3: 3,  # Tierra
             4: 4,  # Bosque
             5: 2,  # Arena
@@ -230,14 +230,14 @@ class Pie_Grande(SerX):
         # Define los costos de las casillas para el avatar Mono
         self.costo_casilla = {
             1: 2,  # Piso
-            2: 1,  # Montaña
+            2: 1,  # MontaÃ±a
             3: 2,  # Tierra
             4: 1,  # Bosque
             5: 3,  # Arena
             6: 4,  # Agua
         }
 
-# Función para escribir el árbol de búsqueda en un archivo de texto
+# FunciÃ³n para escribir el Ã¡rbol de bÃºsqueda en un archivo de texto
 def escribir_arbol(arbol_busqueda):
     if arbol_busqueda is not None:
         with open("arbol_busqueda.txt", "w") as archivo:
@@ -245,7 +245,7 @@ def escribir_arbol(arbol_busqueda):
                 hijos_str = ", ".join([f"({nodo.x}, {nodo.y})" for nodo in hijos])
                 archivo.write(f"Nodo: ({nodo.x}, {nodo.y}), Hijos: [{hijos_str}]\n")
     else:
-        print("El árbol de búsqueda está vacío o no ha sido inicializado.")
+        print("El Ã¡rbol de bÃºsqueda estÃ¡ vacÃ­o o no ha sido inicializado.")
         
 def crear_grafo_pydot(arbol):
     graph = pydot.Dot(graph_type='graph')
@@ -260,10 +260,10 @@ def crear_grafo_pydot(arbol):
 
     return graph
 
-# Tamaño de las celdas en píxeles
+# TamaÃ±o de las celdas en pÃ­xeles
 CELDA_SIZE = 40
 
-# Cargar el laberinto y configurar la posición inicial
+# Cargar el laberinto y configurar la posiciÃ³n inicial
 nombre_archivo = "mapa2.txt"
 laberinto = cargar_laberinto(nombre_archivo)
 
@@ -274,7 +274,7 @@ avatares = {
     "Pie_Grande": "C:\\Users\\kev_a\\OneDrive\\Documentos\\DOC POLI\\ESCOM\\4to Semestre\\FIA\\1erParcial\\Practica3\\Avatar\\pie_grande.png"
 }
 
-# Preguntar al usuario qué avatar desea utilizar
+# Preguntar al usuario quÃ© avatar desea utilizar
 print("Avatares disponibles:")
 for i, avatar in enumerate(avatares, start=1):
     print(f"{i}. {avatar}")
@@ -305,17 +305,17 @@ meta_image = pygame.image.load("meta.png")
 
 camino_resuelto, arbol_busqueda = resolver_a_star(laberinto, serx.x, serx.y, x_meta, y_meta)
 if camino_resuelto is not None:
-    print("Resolución utilizando A*:")
+    print("ResoluciÃ³n utilizando A*:")
     print(camino_resuelto)
-    # Crear y guardar el árbol de búsqueda solo cuando se ha encontrado un camino
-    escribir_arbol(arbol_busqueda)  # Guardar el árbol de búsqueda en un archivo
+    # Crear y guardar el Ã¡rbol de bÃºsqueda solo cuando se ha encontrado un camino
+    escribir_arbol(arbol_busqueda)  # Guardar el Ã¡rbol de bÃºsqueda en un archivo
     # Crear y guardar el grafo Pydot
     grafo = crear_grafo_pydot(arbol_busqueda)
     grafo.write('arbol_grafico_a_star.dot')
     grafo.write_png('arbol_grafico_a_star.png')
 
 else:
-    print("No se encontró una solución utilizando A*.")
+    print("No se encontrÃ³ una soluciÃ³n utilizando A*.")
 
 # Bucle principal del juego
 run = True
@@ -324,11 +324,11 @@ while run:
         if event.type == pygame.QUIT:
             run = False
 
-    # Verificar si el SerX llegó a la meta
+    # Verificar si el SerX llegÃ³ a la meta
     if serx.x == x_meta and serx.y == y_meta:
         # Mostrar el mensaje de victoria
         font = pygame.font.Font(None, 36)
-        mensaje = font.render("¡Llegaste a la Meta, FELICIDADES!", True, WHITE)
+        mensaje = font.render("Â¡Llegaste a la Meta, FELICIDADES!", True, WHITE)
         win.blit(mensaje, (200, 200))
 
         pygame.display.update()
@@ -336,7 +336,7 @@ while run:
 
         run = False  # Salir del bucle al final del juego
     else:
-        # Lógica para el movimiento del SerX
+        # LÃ³gica para el movimiento del SerX
         if camino_resuelto:
             if len(camino_resuelto) > 0:
                 x_destino, y_destino = camino_resuelto[0]
@@ -379,8 +379,8 @@ while run:
 
     pygame.time.delay(500)  # Pausa de 500 milisegundos
 
-# Mostrar el número de movimientos y el costo total al final del juego
-print(f"Número de movimientos: {serx.movimientos}")
+# Mostrar el nÃºmero de movimientos y el costo total al final del juego
+print(f"NÃºmero de movimientos: {serx.movimientos}")
 print(f"Costo total: {serx.costo_total}")
 
 pygame.quit()
